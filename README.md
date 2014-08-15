@@ -18,7 +18,7 @@ Here *turingmachine* is the program name.
 `<current state> <input symbol> <new symbol> <movement> <new state>`
 
 * A single transition should occupy a single line
-* input symbol, new symbol and movement are single characters.
+* `<input symbol>`, `<new symbol>` and `<movement>` are single characters.
 * `<current state>` and `<new state>` can be any combination of characters within a limit of 5
 * First `<current state>` will be considered as your initial state
 * Use '_' for blank, '#' for halting state
