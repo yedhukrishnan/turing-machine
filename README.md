@@ -1,7 +1,7 @@
 Turing Machine
 ==============
 
-A turing machine simulator that can accept a string and process it according to a given set of transitions.
+A turing machine simulator that accepts a string and processes it according to a given set of transitions.
 
 ### Usage
 
