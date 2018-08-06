@@ -1,6 +1,7 @@
 Turing Machine
 ==============
 
+## Deterministic Turing Machine (in C)
 A turing machine simulator that accepts a string and processes it according to a given set of transitions.
 
 ### Usage
@@ -23,3 +24,11 @@ Here *turingmachine* is the program name.
 * First `<current state>` will be considered as your initial state
 * Use '_' for blank, '#' for halting state
 * Use '$' as current state to stop.
+
+## Non-Deterministic Turing Machine (in Python)
+
+Implementation of a non-deterministic turing machine that accepts or rejects string based on a given set of transitions.
+
+## Improvements
+
+There is a lot of scope for improvement in both these programs. Any ideas, feedback or pull requests are always welcome.
