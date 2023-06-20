@@ -19,9 +19,15 @@ void update_string(char, char);
 char string[STR_LENGTH];
 int head, string_length;
 
+enum {
+	RUN,
+	HALT,
+	ACCEPT
+};
+
 int main(int argc, char *argv[])
 {
-  int limit, i, flag;
+  int limit, i, execution_flag;
   char current_state[MAX_LENGTH][LIMIT], new_state[MAX_LENGTH][LIMIT];
   char input_symbol[MAX_LENGTH], write_symbol[MAX_LENGTH], move[MAX_LENGTH];
   char state[LIMIT], file_name[FILENAME_LENGTH];
@@ -88,7 +94,7 @@ int main(int argc, char *argv[])
   strcpy(state, current_state[0]);
   while(1)
   {
-    flag = 0;
+    execution_flag = HALT;
     for(i = 0 ; i < limit ; i++)
     {
       if(!strcmp(state, current_state[i]) && string[head] == input_symbol[i])
@@ -97,18 +103,18 @@ int main(int argc, char *argv[])
         strcpy(state, new_state[i]);
         printf("%-10s\t|  state = %s\n", string, new_state[i]);
         if(!strcmp(state, "#"))
-          flag = 2;
+          execution_flag = ACCEPT;
         else
-          flag = 1;
+          execution_flag = RUN;
         break;
       }
     }
-    if(flag == 0)
+    if(execution_flag == HALT)
     {
       printf("No production found for input symbol \'%c\' at state \'%s\'. Turing Machine halted!\n", string[head], state);
       break;
     }
-    else if(flag == 2)
+    else if(execution_flag == ACCEPT)
     {
       puts("Accepted! Turing Machine halted!");
       break;
