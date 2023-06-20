@@ -27,14 +27,16 @@ int main(int argc, char *argv[])
   char state[LIMIT], file_name[FILENAME_LENGTH];
   FILE *fout, *fin;
 
-  printf("\nTURING MACHINE \n\n");
+  puts("\nTURING MACHINE \n\n");
 
   if(argc > 1 && !strcmp(argv[1], "-help"))
   {
-    printf("Usage\n");
-    printf("1. turingmachine\n");
-    printf("2. turingmachine <input file>\n"); 
-    printf("3. turingmachine <input file> <input string>\n\n");
+    printf("Usage\n"
+    	"1. %s\n"
+    	"2. %s <input file>\n"
+    	"3. %s <input file> <input string>\n",
+		argv[0], argv[0], argv[0]
+	);
     exit(0);
   }
 
@@ -66,7 +68,7 @@ int main(int argc, char *argv[])
         break;
       scanf(" %c %c %c %s", &input_symbol[limit], &write_symbol[limit], &move[limit], new_state[limit]);
     }
-    printf("\n");
+    puts("");
   }
 
   if(argc > 2) /* Checks if string input as commandline argument is present */
@@ -79,7 +81,7 @@ int main(int argc, char *argv[])
     scanf("%s", string);
   }
   string_length = strlen(string);
-  printf("\n");
+  puts("");
 
   /* Start trasition operations */
   head = 0;
@@ -108,11 +110,11 @@ int main(int argc, char *argv[])
     }
     else if(flag == 2)
     {
-      printf("Accepted! Turing Machine halted!\n");
+      puts("Accepted! Turing Machine halted!");
       break;
     }
   }
-  printf("\n");
+  puts("");
   printf("Output is stored as \'%s\' in the folder\n", file_name);
   return 0;
 }
@@ -144,14 +146,15 @@ void update_string(char symbol, char move)
 
 void print_message()
 {
-  printf("Enter the Turing Machine input code\n");
-  printf("Input format:\n");
-  printf("<current state> <input symbol> <new symbol> <movement> <new state>\n");
-  printf("A single transition should occupy a single line\n");
-  printf("input symbol, new symbol and movement are single characters.\n");
-  printf("current state and new state can be any combination of characters within a limit of 5\n");
-  printf("First current state will be considered as your initial state\n");
-  printf("Use \'_\' for blank, \'#\' for halting state\n");
-  printf("Use \'$\' as current state to stop.\n\n");
+  puts("Enter the Turing Machine input code\n"
+  		"Input format:\n"
+  		"<current state> <input symbol> <new symbol> <movement> <new state>\n"
+  		"A single transition should occupy a single line\n"
+  		"input symbol, new symbol and movement are single characters.\n"
+  		"current state and new state can be any combination of characters within a limit of 5\n"
+  		"First current state will be considered as your initial state\n"
+  		"Use \'_\' for blank, \'#\' for halting state\n"
+  		"Use \'$\' as current state to stop.\n"
+	);
 }
 
