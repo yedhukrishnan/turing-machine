@@ -12,29 +12,40 @@
 #define FILENAME_LENGTH 20
 
 void print_head();
-void print_message();
+void print_input_clue();
 void print_line();
 void update_string(char, char);
 
 char string[STR_LENGTH];
 int head, string_length;
 
+enum {
+	RUN,
+	HALT,
+	ACCEPT
+};
+
 int main(int argc, char *argv[])
 {
-  int limit, i, flag;
+  int limit, i, execution_flag;
   char current_state[MAX_LENGTH][LIMIT], new_state[MAX_LENGTH][LIMIT];
   char input_symbol[MAX_LENGTH], write_symbol[MAX_LENGTH], move[MAX_LENGTH];
-  char state[LIMIT], file_name[FILENAME_LENGTH];
+  char state[LIMIT];
+  char file_name[FILENAME_LENGTH];	/* Not imeplented */
   FILE *fout, *fin;
 
-  printf("\nTURING MACHINE \n\n");
+  file_name[0] = '\0';
+
+  puts("\nTURING MACHINE \n\n");
 
   if(argc > 1 && !strcmp(argv[1], "-help"))
   {
-    printf("Usage\n");
-    printf("1. turingmachine\n");
-    printf("2. turingmachine <input file>\n"); 
-    printf("3. turingmachine <input file> <input string>\n\n");
+    printf("Usage\n"
+    	"1. %s\n"
+    	"2. %s <input file>\n"
+    	"3. %s <input file> <input string>\n",
+		argv[0], argv[0], argv[0]
+	);
     exit(0);
   }
 
@@ -58,7 +69,7 @@ int main(int argc, char *argv[])
   }
   else
   {
-    print_message();
+    print_input_clue();
     for(limit = 0 ; limit < MAX_LENGTH ; limit++)
     {
       scanf("%s%s", current_state[limit], current_state[limit]);
@@ -66,7 +77,7 @@ int main(int argc, char *argv[])
         break;
       scanf(" %c %c %c %s", &input_symbol[limit], &write_symbol[limit], &move[limit], new_state[limit]);
     }
-    printf("\n");
+    puts("");
   }
 
   if(argc > 2) /* Checks if string input as commandline argument is present */
@@ -79,14 +90,14 @@ int main(int argc, char *argv[])
     scanf("%s", string);
   }
   string_length = strlen(string);
-  printf("\n");
+  puts("");
 
   /* Start trasition operations */
   head = 0;
   strcpy(state, current_state[0]);
   while(1)
   {
-    flag = 0;
+    execution_flag = HALT;
     for(i = 0 ; i < limit ; i++)
     {
       if(!strcmp(state, current_state[i]) && string[head] == input_symbol[i])
@@ -95,25 +106,27 @@ int main(int argc, char *argv[])
         strcpy(state, new_state[i]);
         printf("%-10s\t|  state = %s\n", string, new_state[i]);
         if(!strcmp(state, "#"))
-          flag = 2;
+          execution_flag = ACCEPT;
         else
-          flag = 1;
+          execution_flag = RUN;
         break;
       }
     }
-    if(flag == 0)
+    if(execution_flag == HALT)
     {
       printf("No production found for input symbol \'%c\' at state \'%s\'. Turing Machine halted!\n", string[head], state);
       break;
     }
-    else if(flag == 2)
+    else if(execution_flag == ACCEPT)
     {
-      printf("Accepted! Turing Machine halted!\n");
+      puts("Accepted! Turing Machine halted!");
       break;
     }
   }
-  printf("\n");
-  printf("Output is stored as \'%s\' in the folder\n", file_name);
+  puts("");
+  if(file_name[0] != '\0'){
+	  printf("Output is stored as \'%s\' in the folder.\n", file_name);
+  }
   return 0;
 }
 
@@ -142,16 +155,17 @@ void update_string(char symbol, char move)
   }
 }
 
-void print_message()
+void print_input_clue()
 {
-  printf("Enter the Turing Machine input code\n");
-  printf("Input format:\n");
-  printf("<current state> <input symbol> <new symbol> <movement> <new state>\n");
-  printf("A single transition should occupy a single line\n");
-  printf("input symbol, new symbol and movement are single characters.\n");
-  printf("current state and new state can be any combination of characters within a limit of 5\n");
-  printf("First current state will be considered as your initial state\n");
-  printf("Use \'_\' for blank, \'#\' for halting state\n");
-  printf("Use \'$\' as current state to stop.\n\n");
+  puts("Enter the Turing Machine input code\n"
+  		"Input format:\n"
+  		"<current state> <input symbol> <new symbol> <movement> <new state>\n"
+  		"A single transition should occupy a single line\n"
+  		"input symbol, new symbol and movement are single characters.\n"
+  		"current state and new state can be any combination of characters within a limit of 5\n"
+  		"First current state will be considered as your initial state\n"
+  		"Use \'_\' for blank, \'#\' for halting state\n"
+  		"Use \'$\' as current state to stop.\n"
+	);
 }
 
