@@ -12,7 +12,7 @@
 #define FILENAME_LENGTH 20
 
 void print_head();
-void print_message();
+void print_input_clue();
 void print_line();
 void update_string(char, char);
 
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
   }
   else
   {
-    print_message();
+    print_input_clue();
     for(limit = 0 ; limit < MAX_LENGTH ; limit++)
     {
       scanf("%s%s", current_state[limit], current_state[limit]);
@@ -155,7 +155,7 @@ void update_string(char symbol, char move)
   }
 }
 
-void print_message()
+void print_input_clue()
 {
   puts("Enter the Turing Machine input code\n"
   		"Input format:\n"
