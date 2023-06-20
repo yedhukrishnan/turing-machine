@@ -30,8 +30,11 @@ int main(int argc, char *argv[])
   int limit, i, execution_flag;
   char current_state[MAX_LENGTH][LIMIT], new_state[MAX_LENGTH][LIMIT];
   char input_symbol[MAX_LENGTH], write_symbol[MAX_LENGTH], move[MAX_LENGTH];
-  char state[LIMIT], file_name[FILENAME_LENGTH];
+  char state[LIMIT];
+  char file_name[FILENAME_LENGTH];	/* Not imeplented */
   FILE *fout, *fin;
+
+  file_name[0] = '\0';
 
   puts("\nTURING MACHINE \n\n");
 
@@ -121,7 +124,9 @@ int main(int argc, char *argv[])
     }
   }
   puts("");
-  printf("Output is stored as \'%s\' in the folder\n", file_name);
+  if(file_name[0] != '\0'){
+	  printf("Output is stored as \'%s\' in the folder.\n", file_name);
+  }
   return 0;
 }
 
